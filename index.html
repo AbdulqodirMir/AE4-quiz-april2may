@@ -167,6 +167,8 @@
     }
     #reset-btn:hover { background: #1558b0; }
 
+    .mt-note { margin-top: 10px; }
+
     @media (max-width: 540px) {
       header h1 { font-size: 1.35rem; }
       .tab-bar button { padding: 8px 13px; font-size: .82rem; }
@@ -240,7 +242,7 @@
       <li><strong>Body paragraph 2</strong> – second cause/effect + evidence.</li>
       <li><strong>Conclusion</strong> – restate thesis, summarise, give a recommendation.</li>
     </ol>
-    <p style="margin-top:10px">Useful connectors: <em>as a result, consequently, therefore, due to, because of, leads to, causes.</em></p>
+    <p class="mt-note">Useful connectors: <em>as a result, consequently, therefore, due to, because of, leads to, causes.</em></p>
   </div>
 </section>
 
@@ -353,7 +355,7 @@
       <li><strong>Solution paragraph(s)</strong> – propose realistic solutions, explain each.</li>
       <li><strong>Conclusion</strong> – summarise and state the most important action.</li>
     </ol>
-    <p style="margin-top:10px">Useful phrases: <em>one way to tackle this is …, a key solution involves …, this approach would …, without urgent action …</em></p>
+    <p class="mt-note">Useful phrases: <em>one way to tackle this is …, a key solution involves …, this approach would …, without urgent action …</em></p>
   </div>
 </section>
 
@@ -412,7 +414,7 @@
       <li><strong>Against paragraph</strong> – disadvantages/opposing arguments + evidence.</li>
       <li><strong>Conclusion</strong> – balanced summary + your supported opinion.</li>
     </ol>
-    <p style="margin-top:10px">Useful phrases: <em>on the one hand …, on the other hand …, proponents argue …, critics claim …, while it is true that …, nevertheless …</em></p>
+    <p class="mt-note">Useful phrases: <em>on the one hand …, on the other hand …, proponents argue …, critics claim …, while it is true that …, nevertheless …</em></p>
   </div>
 </section>
 
@@ -428,10 +430,10 @@
     <div class="q-num">Question 1 · Unit 7 – Vocabulary</div>
     <div class="q-text">Which word best describes a set of rules or instructions that a computer follows to solve a problem?</div>
     <div class="options">
-      <button class="option-btn" onclick="answer(event,'q1','a','c')">A. automation</button>
-      <button class="option-btn" onclick="answer(event,'q1','b','c')">B. surveillance</button>
-      <button class="option-btn" onclick="answer(event,'q1','c','c')">C. algorithm</button>
-      <button class="option-btn" onclick="answer(event,'q1','d','c')">D. misinformation</button>
+      <button class="option-btn" data-choice="a" onclick="answer(event,'q1','a','c')">A. automation</button>
+      <button class="option-btn" data-choice="b" onclick="answer(event,'q1','b','c')">B. surveillance</button>
+      <button class="option-btn" data-choice="c" onclick="answer(event,'q1','c','c')">C. algorithm</button>
+      <button class="option-btn" data-choice="d" onclick="answer(event,'q1','d','c')">D. misinformation</button>
     </div>
     <div class="explanation" id="exp-q1">
       <strong>Correct answer: C – algorithm.</strong> An algorithm is a step-by-step set of rules for solving a problem. Automation refers to machines doing tasks; surveillance is monitoring; misinformation is false information.
@@ -443,10 +445,10 @@
     <div class="q-num">Question 2 · Unit 7 – Grammar (Passive Voice)</div>
     <div class="q-text">Choose the correct passive sentence:</div>
     <div class="options">
-      <button class="option-btn" onclick="answer(event,'q2','a','b')">A. The hacker stolen the data.</button>
-      <button class="option-btn" onclick="answer(event,'q2','b','b')">B. The data was stolen by the hacker.</button>
-      <button class="option-btn" onclick="answer(event,'q2','c','b')">C. The data stolen by the hacker was.</button>
-      <button class="option-btn" onclick="answer(event,'q2','d','b')">D. The data is steal by the hacker.</button>
+      <button class="option-btn" data-choice="a" onclick="answer(event,'q2','a','b')">A. The hacker stolen the data.</button>
+      <button class="option-btn" data-choice="b" onclick="answer(event,'q2','b','b')">B. The data was stolen by the hacker.</button>
+      <button class="option-btn" data-choice="c" onclick="answer(event,'q2','c','b')">C. The data stolen by the hacker was.</button>
+      <button class="option-btn" data-choice="d" onclick="answer(event,'q2','d','b')">D. The data is steal by the hacker.</button>
     </div>
     <div class="explanation" id="exp-q2">
       <strong>Correct answer: B.</strong> Past passive = <em>was/were</em> + past participle. "The data <strong>was stolen</strong> by the hacker" is the only grammatically correct passive form here.
@@ -458,10 +460,10 @@
     <div class="q-num">Question 3 · Unit 8 – Vocabulary</div>
     <div class="q-text">A patient who has had a long-term illness for many years can be described as having a ___ condition.</div>
     <div class="options">
-      <button class="option-btn" onclick="answer(event,'q3','a','a')">A. chronic</button>
-      <button class="option-btn" onclick="answer(event,'q3','b','a')">B. holistic</button>
-      <button class="option-btn" onclick="answer(event,'q3','c','a')">C. sedentary</button>
-      <button class="option-btn" onclick="answer(event,'q3','d','a')">D. preventive</button>
+      <button class="option-btn" data-choice="a" onclick="answer(event,'q3','a','a')">A. chronic</button>
+      <button class="option-btn" data-choice="b" onclick="answer(event,'q3','b','a')">B. holistic</button>
+      <button class="option-btn" data-choice="c" onclick="answer(event,'q3','c','a')">C. sedentary</button>
+      <button class="option-btn" data-choice="d" onclick="answer(event,'q3','d','a')">D. preventive</button>
     </div>
     <div class="explanation" id="exp-q3">
       <strong>Correct answer: A – chronic.</strong> Chronic means lasting a long time. Holistic = treating the whole person; sedentary = inactive; preventive = preventing illness before it starts.
@@ -473,10 +475,10 @@
     <div class="q-num">Question 4 · Unit 8 – Grammar (Modal Verbs)</div>
     <div class="q-text">Which sentence expresses a <em>prohibition</em>?</div>
     <div class="options">
-      <button class="option-btn" onclick="answer(event,'q4','a','c')">A. You should eat more vegetables.</button>
-      <button class="option-btn" onclick="answer(event,'q4','b','c')">B. You don't have to exercise every day.</button>
-      <button class="option-btn" onclick="answer(event,'q4','c','c')">C. You mustn't smoke inside the hospital.</button>
-      <button class="option-btn" onclick="answer(event,'q4','d','c')">D. You could try meditation for stress.</button>
+      <button class="option-btn" data-choice="a" onclick="answer(event,'q4','a','c')">A. You should eat more vegetables.</button>
+      <button class="option-btn" data-choice="b" onclick="answer(event,'q4','b','c')">B. You don't have to exercise every day.</button>
+      <button class="option-btn" data-choice="c" onclick="answer(event,'q4','c','c')">C. You mustn't smoke inside the hospital.</button>
+      <button class="option-btn" data-choice="d" onclick="answer(event,'q4','d','c')">D. You could try meditation for stress.</button>
     </div>
     <div class="explanation" id="exp-q4">
       <strong>Correct answer: C.</strong> <em>Must not / mustn't</em> expresses prohibition (something that is not allowed). <em>Should</em> = advice; <em>don't have to</em> = no obligation; <em>could</em> = suggestion/possibility.
@@ -488,10 +490,10 @@
     <div class="q-num">Question 5 · Unit 9 – Vocabulary</div>
     <div class="q-text">The total amount of greenhouse gases produced by a person's activities is their ___.</div>
     <div class="options">
-      <button class="option-btn" onclick="answer(event,'q5','a','b')">A. ecosystem</button>
-      <button class="option-btn" onclick="answer(event,'q5','b','b')">B. carbon footprint</button>
-      <button class="option-btn" onclick="answer(event,'q5','c','b')">C. biodiversity</button>
-      <button class="option-btn" onclick="answer(event,'q5','d','b')">D. circular economy</button>
+      <button class="option-btn" data-choice="a" onclick="answer(event,'q5','a','b')">A. ecosystem</button>
+      <button class="option-btn" data-choice="b" onclick="answer(event,'q5','b','b')">B. carbon footprint</button>
+      <button class="option-btn" data-choice="c" onclick="answer(event,'q5','c','b')">C. biodiversity</button>
+      <button class="option-btn" data-choice="d" onclick="answer(event,'q5','d','b')">D. circular economy</button>
     </div>
     <div class="explanation" id="exp-q5">
       <strong>Correct answer: B – carbon footprint.</strong> Carbon footprint measures the total greenhouse gas emissions caused by an individual or activity. An ecosystem is a community of organisms; biodiversity is the variety of species; a circular economy is a waste-reduction system.
@@ -503,10 +505,10 @@
     <div class="q-num">Question 6 · Unit 9 – Grammar (Conditionals)</div>
     <div class="q-text">Which sentence is a correct <em>second conditional</em>?</div>
     <div class="options">
-      <button class="option-btn" onclick="answer(event,'q6','a','d')">A. If we recycle more, the planet will be cleaner.</button>
-      <button class="option-btn" onclick="answer(event,'q6','b','d')">B. If every country will use renewables, we stop climate change.</button>
-      <button class="option-btn" onclick="answer(event,'q6','c','d')">C. If we reduced emissions, the planet is healthier.</button>
-      <button class="option-btn" onclick="answer(event,'q6','d','d')">D. If every country used renewables, we would slow climate change.</button>
+      <button class="option-btn" data-choice="a" onclick="answer(event,'q6','a','d')">A. If we recycle more, the planet will be cleaner.</button>
+      <button class="option-btn" data-choice="b" onclick="answer(event,'q6','b','d')">B. If every country will use renewables, we stop climate change.</button>
+      <button class="option-btn" data-choice="c" onclick="answer(event,'q6','c','d')">C. If we reduced emissions, the planet is healthier.</button>
+      <button class="option-btn" data-choice="d" onclick="answer(event,'q6','d','d')">D. If every country used renewables, we would slow climate change.</button>
     </div>
     <div class="explanation" id="exp-q6">
       <strong>Correct answer: D.</strong> The 2nd conditional pattern is: <em>If + past simple, would + infinitive</em>. Option A is 1st conditional (real/likely). Options B and C mix tenses incorrectly.
@@ -518,10 +520,10 @@
     <div class="q-num">Question 7 · Unit 10 – Vocabulary</div>
     <div class="q-text">When a company hires workers in another country to perform tasks, this is called ___.</div>
     <div class="options">
-      <button class="option-btn" onclick="answer(event,'q7','a','c')">A. diaspora</button>
-      <button class="option-btn" onclick="answer(event,'q7','b','c')">B. homogenisation</button>
-      <button class="option-btn" onclick="answer(event,'q7','c','c')">C. outsourcing</button>
-      <button class="option-btn" onclick="answer(event,'q7','d','c')">D. trade barrier</button>
+      <button class="option-btn" data-choice="a" onclick="answer(event,'q7','a','c')">A. diaspora</button>
+      <button class="option-btn" data-choice="b" onclick="answer(event,'q7','b','c')">B. homogenisation</button>
+      <button class="option-btn" data-choice="c" onclick="answer(event,'q7','c','c')">C. outsourcing</button>
+      <button class="option-btn" data-choice="d" onclick="answer(event,'q7','d','c')">D. trade barrier</button>
     </div>
     <div class="explanation" id="exp-q7">
       <strong>Correct answer: C – outsourcing.</strong> Outsourcing means hiring workers or companies in other countries. Diaspora = scattered population; homogenisation = making things uniform; trade barrier = restrictions on trade.
@@ -533,10 +535,10 @@
     <div class="q-num">Question 8 · Unit 10 – Grammar (Reported Speech)</div>
     <div class="q-text">Change to reported speech: The expert said, "Globalisation is accelerating."</div>
     <div class="options">
-      <button class="option-btn" onclick="answer(event,'q8','a','b')">A. The expert said that globalisation is accelerating.</button>
-      <button class="option-btn" onclick="answer(event,'q8','b','b')">B. The expert said that globalisation was accelerating.</button>
-      <button class="option-btn" onclick="answer(event,'q8','c','b')">C. The expert said that globalisation will be accelerating.</button>
-      <button class="option-btn" onclick="answer(event,'q8','d','b')">D. The expert said globalisation accelerates.</button>
+      <button class="option-btn" data-choice="a" onclick="answer(event,'q8','a','b')">A. The expert said that globalisation is accelerating.</button>
+      <button class="option-btn" data-choice="b" onclick="answer(event,'q8','b','b')">B. The expert said that globalisation was accelerating.</button>
+      <button class="option-btn" data-choice="c" onclick="answer(event,'q8','c','b')">C. The expert said that globalisation will be accelerating.</button>
+      <button class="option-btn" data-choice="d" onclick="answer(event,'q8','d','b')">D. The expert said globalisation accelerates.</button>
     </div>
     <div class="explanation" id="exp-q8">
       <strong>Correct answer: B.</strong> In reported speech, the present continuous (<em>is accelerating</em>) shifts back to the past continuous (<em>was accelerating</em>). The reporting verb <em>said</em> (past) triggers this backshift.
@@ -548,10 +550,10 @@
     <div class="q-num">Question 9 · Unit 7 – Reading Skill</div>
     <div class="q-text">A technology article uses phrases like "research confirms …" and "studies demonstrate …". This most likely indicates the author's purpose is to ___.</div>
     <div class="options">
-      <button class="option-btn" onclick="answer(event,'q9','a','a')">A. inform</button>
-      <button class="option-btn" onclick="answer(event,'q9','b','a')">B. entertain</button>
-      <button class="option-btn" onclick="answer(event,'q9','c','a')">C. persuade emotionally</button>
-      <button class="option-btn" onclick="answer(event,'q9','d','a')">D. satirise</button>
+      <button class="option-btn" data-choice="a" onclick="answer(event,'q9','a','a')">A. inform</button>
+      <button class="option-btn" data-choice="b" onclick="answer(event,'q9','b','a')">B. entertain</button>
+      <button class="option-btn" data-choice="c" onclick="answer(event,'q9','c','a')">C. persuade emotionally</button>
+      <button class="option-btn" data-choice="d" onclick="answer(event,'q9','d','a')">D. satirise</button>
     </div>
     <div class="explanation" id="exp-q9">
       <strong>Correct answer: A – inform.</strong> Signal phrases like "research confirms" and "studies demonstrate" indicate an informative, evidence-based purpose. Emotional persuasion would use appeals to feelings; entertainment would use humour or narrative.
@@ -563,10 +565,10 @@
     <div class="q-num">Question 10 · Unit 9 – Writing Skill</div>
     <div class="q-text">In a problem-solution essay about deforestation, where should you present realistic ways to address the issue?</div>
     <div class="options">
-      <button class="option-btn" onclick="answer(event,'q10','a','c')">A. In the introduction</button>
-      <button class="option-btn" onclick="answer(event,'q10','b','c')">B. In the problem paragraph</button>
-      <button class="option-btn" onclick="answer(event,'q10','c','c')">C. In the solution paragraph(s)</button>
-      <button class="option-btn" onclick="answer(event,'q10','d','c')">D. Only in the conclusion</button>
+      <button class="option-btn" data-choice="a" onclick="answer(event,'q10','a','c')">A. In the introduction</button>
+      <button class="option-btn" data-choice="b" onclick="answer(event,'q10','b','c')">B. In the problem paragraph</button>
+      <button class="option-btn" data-choice="c" onclick="answer(event,'q10','c','c')">C. In the solution paragraph(s)</button>
+      <button class="option-btn" data-choice="d" onclick="answer(event,'q10','d','c')">D. Only in the conclusion</button>
     </div>
     <div class="explanation" id="exp-q10">
       <strong>Correct answer: C.</strong> The problem-solution essay structure dedicates one or more body paragraphs specifically to <em>solutions</em>. The introduction gives background; the problem paragraph describes the issue; the conclusion summarises.
@@ -593,9 +595,9 @@
   }
 
   /* ── Quiz logic ── */
-  var answered = {};   // tracks which questions have been answered
-  var correct  = 0;
-  var total    = 0;
+  let answered = {};   // tracks which questions have been answered
+  let correct  = 0;
+  let total    = 0;
 
   function answer(event, qId, chosen, correctKey) {
     if (answered[qId]) return;   // already answered
@@ -603,26 +605,20 @@
     answered[qId] = true;
     total++;
 
-    var card = document.getElementById(qId);
-    var buttons = card.querySelectorAll('.option-btn');
-    var explanation = document.getElementById('exp-' + qId);
+    const card = document.getElementById(qId);
+    const buttons = card.querySelectorAll('.option-btn');
+    const explanation = document.getElementById('exp-' + qId);
 
     // Disable all buttons for this question
     buttons.forEach(function(btn) { btn.disabled = true; });
 
-    // Mark correct / wrong
+    // Mark correct / wrong using data-choice attribute
     buttons.forEach(function(btn) {
-      // Extract the letter key from the button's onclick attribute
-      var onclickAttr = btn.getAttribute('onclick');
-      // key is the 3rd argument: answer(event,'q1','a','c') → 'a'
-      var match = onclickAttr.match(/answer\(event,'[^']+','([^']+)','[^']+'\)/);
-      if (match) {
-        var btnKey = match[1];
-        if (btnKey === correctKey) {
-          btn.classList.add('correct');
-        } else if (btnKey === chosen) {
-          btn.classList.add('wrong');
-        }
+      const btnKey = btn.dataset.choice;
+      if (btnKey === correctKey) {
+        btn.classList.add('correct');
+      } else if (btnKey === chosen) {
+        btn.classList.add('wrong');
       }
     });
 
