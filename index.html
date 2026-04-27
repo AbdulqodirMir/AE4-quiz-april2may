@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AE4 Exam Prep – Units 7–10</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f4f8;
+      color: #222;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a73e8, #0d47a1);
+      color: #fff;
+      padding: 28px 20px 18px;
+      text-align: center;
+    }
+    header h1 { font-size: 1.9rem; letter-spacing: .5px; }
+    header p  { margin-top: 6px; font-size: .95rem; opacity: .85; }
+
+    /* ── Tab bar ── */
+    .tab-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 14px 16px 0;
+      background: #fff;
+      border-bottom: 2px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 6px rgba(0,0,0,.07);
+    }
+    .tab-bar button {
+      padding: 9px 20px;
+      border: none;
+      border-radius: 6px 6px 0 0;
+      background: #e8f0fe;
+      color: #1a73e8;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      outline: none;
+    }
+    .tab-bar button:hover  { background: #c6d9fd; }
+    .tab-bar button.active { background: #1a73e8; color: #fff; }
+
+    /* ── Content sections ── */
+    .section { display: none; max-width: 860px; margin: 0 auto; padding: 28px 18px 50px; }
+    .section.active { display: block; }
+
+    /* Study-guide cards */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .card h2 { color: #1a73e8; font-size: 1.2rem; margin-bottom: 10px; }
+    .card h3 { color: #333; font-size: 1rem; margin: 14px 0 6px; }
+    .card p  { line-height: 1.7; font-size: .93rem; color: #444; }
+    .card ul, .card ol { margin-left: 20px; line-height: 1.8; font-size: .93rem; color: #444; }
+    .tag {
+      display: inline-block;
+      background: #e8f0fe;
+      color: #1a73e8;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: .78rem;
+      font-weight: 700;
+      margin-right: 6px;
+      margin-bottom: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+      margin-top: 10px;
+    }
+    th { background: #e8f0fe; color: #1a73e8; text-align: left; padding: 8px 12px; }
+    td { padding: 8px 12px; border-bottom: 1px solid #e9e9e9; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f5f9ff; }
+
+    /* Quiz */
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 20px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .quiz-header h2 { color: #1a73e8; font-size: 1.15rem; }
+    #score-display {
+      font-size: .9rem;
+      font-weight: 700;
+      color: #333;
+    }
+    #score-display span { color: #1a73e8; font-size: 1.1rem; }
+
+    .q-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .q-num { font-size: .78rem; font-weight: 700; color: #888; text-transform: uppercase; margin-bottom: 6px; }
+    .q-text { font-size: .97rem; font-weight: 600; color: #222; margin-bottom: 14px; line-height: 1.6; }
+    .options { display: flex; flex-direction: column; gap: 8px; }
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px 14px;
+      border: 2px solid #dce3ed;
+      border-radius: 8px;
+      background: #fafbff;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      outline: none;
+    }
+    .option-btn:hover:not(:disabled) {
+      border-color: #1a73e8;
+      background: #edf3ff;
+    }
+    .option-btn.correct  { border-color: #27ae60; background: #eafaf1; color: #1a5c34; font-weight: 600; }
+    .option-btn.wrong    { border-color: #e74c3c; background: #fdf0ef; color: #7b2120; }
+    .option-btn:disabled { cursor: default; opacity: .85; }
+    .explanation {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      background: #f0f8ff;
+      border-left: 4px solid #1a73e8;
+      border-radius: 0 6px 6px 0;
+      font-size: .88rem;
+      color: #333;
+      line-height: 1.65;
+    }
+    .explanation.show { display: block; }
+
+    /* Reset button */
+    #reset-btn {
+      display: block;
+      margin: 8px auto 0;
+      padding: 12px 34px;
+      background: #1a73e8;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    #reset-btn:hover { background: #1558b0; }
+
+    @media (max-width: 540px) {
+      header h1 { font-size: 1.35rem; }
+      .tab-bar button { padding: 8px 13px; font-size: .82rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>AE4 Exam Prep – Units 7–10</h1>
+  <p>Study guide &amp; practice quiz • Spring semester</p>
+</header>
+
+<div class="tab-bar">
+  <button class="active" onclick="showSection(event,'u7')">Unit 7</button>
+  <button onclick="showSection(event,'u8')">Unit 8</button>
+  <button onclick="showSection(event,'u9')">Unit 9</button>
+  <button onclick="showSection(event,'u10')">Unit 10</button>
+  <button onclick="showSection(event,'quiz')">🖊 Practice Quiz</button>
+</div>
+
+<!-- ═══════════════════ UNIT 7 ═══════════════════ -->
+<section id="u7" class="section active">
+  <div class="card">
+    <h2>Unit 7 – Technology &amp; Society</h2>
+    <p>This unit explores how modern technology shapes everyday life, communication, work, and ethical decision-making.</p>
+  </div>
+
+  <div class="card">
+    <h3>Key Vocabulary</h3>
+    <table>
+      <tr><th>Word / Phrase</th><th>Meaning</th><th>Example</th></tr>
+      <tr><td>algorithm</td><td>a step-by-step set of rules for solving a problem</td><td>Social media <em>algorithms</em> decide what you see first.</td></tr>
+      <tr><td>digital footprint</td><td>the trail of data you leave online</td><td>Your <em>digital footprint</em> includes every post you make.</td></tr>
+      <tr><td>automation</td><td>using machines/software to perform tasks</td><td><em>Automation</em> has replaced many factory jobs.</td></tr>
+      <tr><td>cybersecurity</td><td>practices that protect computer systems from attacks</td><td>Strong passwords improve <em>cybersecurity</em>.</td></tr>
+      <tr><td>ethical dilemma</td><td>a difficult situation involving a moral choice</td><td>AI decision-making raises many <em>ethical dilemmas</em>.</td></tr>
+      <tr><td>innovation</td><td>a new idea, method, or product</td><td>The smartphone was a major <em>innovation</em>.</td></tr>
+      <tr><td>surveillance</td><td>close observation, especially by authorities</td><td>CCTV cameras allow <em>surveillance</em> of public spaces.</td></tr>
+      <tr><td>misinformation</td><td>false information spread unintentionally</td><td><em>Misinformation</em> about health can be dangerous.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Grammar Focus – Passive Voice (Present &amp; Past)</h3>
+    <p>Use the passive when the action is more important than the actor, or the actor is unknown.</p>
+    <ul>
+      <li><strong>Present passive:</strong> is/are + past participle → <em>"Personal data <strong>is collected</strong> by apps."</em></li>
+      <li><strong>Past passive:</strong> was/were + past participle → <em>"The database <strong>was hacked</strong> last year."</em></li>
+      <li><strong>Agent phrase:</strong> Use <em>by</em> to mention the agent: <em>"The report was written <strong>by</strong> the committee."</em></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Reading Skill – Identifying Author's Purpose</h3>
+    <p>Ask: Does the author want to <strong>inform</strong>, <strong>persuade</strong>, or <strong>entertain</strong>?</p>
+    <ul>
+      <li>Look for <em>signal words</em>: "research shows …" (inform); "we must …" (persuade).</li>
+      <li>Check the <em>tone</em>: neutral → informative; opinionated → persuasive.</li>
+      <li>Note <em>evidence</em>: statistics and citations support an informative or persuasive purpose.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Writing Skill – Cause &amp; Effect Essay</h3>
+    <span class="tag">Structure</span><span class="tag">Cohesion</span>
+    <p>Organise your essay with:</p>
+    <ol>
+      <li><strong>Introduction</strong> – state the topic and your thesis.</li>
+      <li><strong>Body paragraph 1</strong> – first cause/effect + evidence.</li>
+      <li><strong>Body paragraph 2</strong> – second cause/effect + evidence.</li>
+      <li><strong>Conclusion</strong> – restate thesis, summarise, give a recommendation.</li>
+    </ol>
+    <p style="margin-top:10px">Useful connectors: <em>as a result, consequently, therefore, due to, because of, leads to, causes.</em></p>
+  </div>
+</section>
+
+<!-- ═══════════════════ UNIT 8 ═══════════════════ -->
+<section id="u8" class="section">
+  <div class="card">
+    <h2>Unit 8 – Health &amp; Well-being</h2>
+    <p>Unit 8 covers topics related to physical and mental health, healthcare systems, and healthy lifestyle choices.</p>
+  </div>
+
+  <div class="card">
+    <h3>Key Vocabulary</h3>
+    <table>
+      <tr><th>Word / Phrase</th><th>Meaning</th><th>Example</th></tr>
+      <tr><td>chronic</td><td>lasting a long time; persistent</td><td><em>Chronic</em> stress can cause serious illness.</td></tr>
+      <tr><td>diagnosis</td><td>the identification of a disease</td><td>An early <em>diagnosis</em> improves recovery chances.</td></tr>
+      <tr><td>preventive care</td><td>healthcare that prevents illness before it starts</td><td>Exercise is a form of <em>preventive care</em>.</td></tr>
+      <tr><td>sedentary</td><td>spending a lot of time sitting; inactive</td><td>A <em>sedentary</em> lifestyle raises the risk of heart disease.</td></tr>
+      <tr><td>resilience</td><td>the ability to recover from difficulties</td><td>Mental <em>resilience</em> helps people cope with stress.</td></tr>
+      <tr><td>mortality rate</td><td>the number of deaths in a population</td><td>The <em>mortality rate</em> for that disease has dropped.</td></tr>
+      <tr><td>epidemic</td><td>a widespread occurrence of disease</td><td>Obesity is described as a global <em>epidemic</em>.</td></tr>
+      <tr><td>holistic</td><td>treating the whole person, not just symptoms</td><td><em>Holistic</em> medicine considers body and mind together.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Grammar Focus – Modal Verbs for Advice &amp; Necessity</h3>
+    <ul>
+      <li><strong>should / ought to</strong> – advice: <em>"You <strong>should</strong> get more sleep."</em></li>
+      <li><strong>must / have to</strong> – strong necessity: <em>"Patients <strong>must</strong> take their medication."</em></li>
+      <li><strong>don't have to</strong> – no obligation: <em>"You <strong>don't have to</strong> go to the gym every day."</em></li>
+      <li><strong>must not / mustn't</strong> – prohibition: <em>"You <strong>mustn't</strong> smoke in hospitals."</em></li>
+      <li><strong>could / might</strong> – possibility: <em>"Exercise <strong>could</strong> reduce your risk of diabetes."</em></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Reading Skill – Distinguishing Fact from Opinion</h3>
+    <ul>
+      <li><strong>Facts</strong> can be verified: <em>"Studies show that smoking causes lung cancer."</em></li>
+      <li><strong>Opinions</strong> express a viewpoint: <em>"Junk food should be taxed heavily."</em></li>
+      <li>Watch for hedging language: <em>arguably, it is believed that, some experts suggest …</em></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Speaking Skill – Discussing Solutions to Problems</h3>
+    <span class="tag">Fluency</span><span class="tag">Coherence</span>
+    <p>Use this structure for problem-solution discussions:</p>
+    <ol>
+      <li>State the problem: <em>"One major issue is …"</em></li>
+      <li>Explain the cause: <em>"This is largely due to …"</em></li>
+      <li>Propose a solution: <em>"One effective solution would be to …"</em></li>
+      <li>Justify: <em>"This would work because …"</em></li>
+      <li>Acknowledge limits: <em>"Of course, there are challenges, such as …"</em></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══════════════════ UNIT 9 ═══════════════════ -->
+<section id="u9" class="section">
+  <div class="card">
+    <h2>Unit 9 – Environment &amp; Sustainability</h2>
+    <p>Unit 9 focuses on environmental challenges, climate change, and sustainable development goals.</p>
+  </div>
+
+  <div class="card">
+    <h3>Key Vocabulary</h3>
+    <table>
+      <tr><th>Word / Phrase</th><th>Meaning</th><th>Example</th></tr>
+      <tr><td>carbon footprint</td><td>total greenhouse gas emissions caused by an individual or activity</td><td>Flying increases your <em>carbon footprint</em> significantly.</td></tr>
+      <tr><td>renewable energy</td><td>energy from sources that are naturally replenished</td><td>Solar power is a form of <em>renewable energy</em>.</td></tr>
+      <tr><td>biodiversity</td><td>the variety of plant and animal life in a habitat</td><td>Deforestation threatens <em>biodiversity</em>.</td></tr>
+      <tr><td>deforestation</td><td>the clearing of forests</td><td><em>Deforestation</em> accelerates climate change.</td></tr>
+      <tr><td>sustainable</td><td>able to be maintained without harming the environment</td><td>We need <em>sustainable</em> farming practices.</td></tr>
+      <tr><td>emissions</td><td>substances released into the atmosphere</td><td>Countries must cut <em>emissions</em> by 2030.</td></tr>
+      <tr><td>ecosystem</td><td>a community of organisms and their environment</td><td>Coral reefs are a fragile <em>ecosystem</em>.</td></tr>
+      <tr><td>circular economy</td><td>an economic system aimed at eliminating waste through reuse</td><td>A <em>circular economy</em> recycles products into new materials.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Grammar Focus – Conditionals (1st &amp; 2nd)</h3>
+    <ul>
+      <li><strong>1st conditional</strong> (real/likely): <em>If + present simple, will + infinitive</em><br>
+        → <em>"If we reduce emissions, the planet <strong>will</strong> be healthier."</em></li>
+      <li><strong>2nd conditional</strong> (unreal/hypothetical): <em>If + past simple, would + infinitive</em><br>
+        → <em>"If every country used renewables, we <strong>would</strong> slow climate change."</em></li>
+      <li>Note: use <em>were</em> (not <em>was</em>) in formal 2nd conditionals: <em>"If I <strong>were</strong> a policymaker …"</em></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Reading Skill – Evaluating Arguments</h3>
+    <ul>
+      <li>Identify the <strong>claim</strong>: the main point the author is making.</li>
+      <li>Look for <strong>evidence</strong>: data, examples, expert opinions.</li>
+      <li>Check for <strong>counter-arguments</strong>: does the author address opposing views?</li>
+      <li>Assess <strong>bias</strong>: who wrote the text and why? What might they have left out?</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Writing Skill – Problem-Solution Essay</h3>
+    <span class="tag">Structure</span><span class="tag">Lexical Range</span>
+    <p>Paragraph plan:</p>
+    <ol>
+      <li><strong>Introduction</strong> – background + thesis (overview of problem and solutions).</li>
+      <li><strong>Problem paragraph</strong> – describe the issue with evidence.</li>
+      <li><strong>Solution paragraph(s)</strong> – propose realistic solutions, explain each.</li>
+      <li><strong>Conclusion</strong> – summarise and state the most important action.</li>
+    </ol>
+    <p style="margin-top:10px">Useful phrases: <em>one way to tackle this is …, a key solution involves …, this approach would …, without urgent action …</em></p>
+  </div>
+</section>
+
+<!-- ═══════════════════ UNIT 10 ═══════════════════ -->
+<section id="u10" class="section">
+  <div class="card">
+    <h2>Unit 10 – Globalisation &amp; Culture</h2>
+    <p>Unit 10 examines how globalisation affects cultures, economies, and identities around the world.</p>
+  </div>
+
+  <div class="card">
+    <h3>Key Vocabulary</h3>
+    <table>
+      <tr><th>Word / Phrase</th><th>Meaning</th><th>Example</th></tr>
+      <tr><td>globalisation</td><td>the process by which the world becomes more interconnected</td><td><em>Globalisation</em> has created a global marketplace.</td></tr>
+      <tr><td>cultural exchange</td><td>the sharing of ideas, traditions, and practices between cultures</td><td><em>Cultural exchange</em> enriches societies.</td></tr>
+      <tr><td>homogenisation</td><td>making things more uniform; reducing diversity</td><td>Critics fear the <em>homogenisation</em> of local cultures.</td></tr>
+      <tr><td>outsourcing</td><td>hiring workers or companies in other countries to do work</td><td>Many firms are <em>outsourcing</em> customer service to Asia.</td></tr>
+      <tr><td>diaspora</td><td>a scattered population from their original homeland</td><td>The Indian <em>diaspora</em> is present in over 100 countries.</td></tr>
+      <tr><td>trade barrier</td><td>restrictions that make trade between countries more difficult</td><td>Tariffs are a type of <em>trade barrier</em>.</td></tr>
+      <tr><td>cultural identity</td><td>a sense of belonging to a particular culture</td><td>Language is central to <em>cultural identity</em>.</td></tr>
+      <tr><td>multinational</td><td>a company that operates in many countries</td><td><em>Multinationals</em> can influence local economies.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Grammar Focus – Reported Speech</h3>
+    <ul>
+      <li><strong>Statements:</strong> say/tell + that → tense shifts back:<br>
+        <em>"Experts <strong>said</strong> that globalisation <strong>was</strong> accelerating."</em></li>
+      <li><strong>Questions:</strong> ask + if/whether/wh-word (no inversion):<br>
+        <em>"She asked <strong>whether</strong> local businesses <strong>could</strong> survive."</em></li>
+      <li><strong>Commands:</strong> tell/ask + object + to-infinitive:<br>
+        <em>"The manager <strong>told</strong> employees <strong>to adapt</strong> to new markets."</em></li>
+      <li>Pronoun and time-expression changes also apply (e.g. <em>now → then, today → that day</em>).</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Listening Skill – Note-taking Strategies</h3>
+    <ul>
+      <li>Use <strong>abbreviations</strong>: &amp;, w/, b/c, e.g., govt., approx.</li>
+      <li>Write <strong>key words</strong>, not full sentences.</li>
+      <li>Use <strong>symbols</strong>: → (leads to), ↑ (increase), ↓ (decrease), ≈ (approximately).</li>
+      <li>Leave space to fill in details during the second listening.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Writing Skill – Discussion (For &amp; Against) Essay</h3>
+    <span class="tag">Balance</span><span class="tag">Academic Tone</span>
+    <p>Paragraph plan:</p>
+    <ol>
+      <li><strong>Introduction</strong> – introduce the topic, state that both sides will be discussed.</li>
+      <li><strong>For paragraph</strong> – advantages/supporting arguments + evidence.</li>
+      <li><strong>Against paragraph</strong> – disadvantages/opposing arguments + evidence.</li>
+      <li><strong>Conclusion</strong> – balanced summary + your supported opinion.</li>
+    </ol>
+    <p style="margin-top:10px">Useful phrases: <em>on the one hand …, on the other hand …, proponents argue …, critics claim …, while it is true that …, nevertheless …</em></p>
+  </div>
+</section>
+
+<!-- ═══════════════════ PRACTICE QUIZ ═══════════════════ -->
+<section id="quiz" class="section">
+  <div class="quiz-header">
+    <h2>Practice Quiz – Units 7–10</h2>
+    <div id="score-display">Score: <span id="score">0</span> / <span id="total">0</span></div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="q-card" id="q1">
+    <div class="q-num">Question 1 · Unit 7 – Vocabulary</div>
+    <div class="q-text">Which word best describes a set of rules or instructions that a computer follows to solve a problem?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(event,'q1','a','c')">A. automation</button>
+      <button class="option-btn" onclick="answer(event,'q1','b','c')">B. surveillance</button>
+      <button class="option-btn" onclick="answer(event,'q1','c','c')">C. algorithm</button>
+      <button class="option-btn" onclick="answer(event,'q1','d','c')">D. misinformation</button>
+    </div>
+    <div class="explanation" id="exp-q1">
+      <strong>Correct answer: C – algorithm.</strong> An algorithm is a step-by-step set of rules for solving a problem. Automation refers to machines doing tasks; surveillance is monitoring; misinformation is false information.
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="q2">
+    <div class="q-num">Question 2 · Unit 7 – Grammar (Passive Voice)</div>
+    <div class="q-text">Choose the correct passive sentence:</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(event,'q2','a','b')">A. The hacker stolen the data.</button>
+      <button class="option-btn" onclick="answer(event,'q2','b','b')">B. The data was stolen by the hacker.</button>
+      <button class="option-btn" onclick="answer(event,'q2','c','b')">C. The data stolen by the hacker was.</button>
+      <button class="option-btn" onclick="answer(event,'q2','d','b')">D. The data is steal by the hacker.</button>
+    </div>
+    <div class="explanation" id="exp-q2">
+      <strong>Correct answer: B.</strong> Past passive = <em>was/were</em> + past participle. "The data <strong>was stolen</strong> by the hacker" is the only grammatically correct passive form here.
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="q3">
+    <div class="q-num">Question 3 · Unit 8 – Vocabulary</div>
+    <div class="q-text">A patient who has had a long-term illness for many years can be described as having a ___ condition.</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(event,'q3','a','a')">A. chronic</button>
+      <button class="option-btn" onclick="answer(event,'q3','b','a')">B. holistic</button>
+      <button class="option-btn" onclick="answer(event,'q3','c','a')">C. sedentary</button>
+      <button class="option-btn" onclick="answer(event,'q3','d','a')">D. preventive</button>
+    </div>
+    <div class="explanation" id="exp-q3">
+      <strong>Correct answer: A – chronic.</strong> Chronic means lasting a long time. Holistic = treating the whole person; sedentary = inactive; preventive = preventing illness before it starts.
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="q4">
+    <div class="q-num">Question 4 · Unit 8 – Grammar (Modal Verbs)</div>
+    <div class="q-text">Which sentence expresses a <em>prohibition</em>?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(event,'q4','a','c')">A. You should eat more vegetables.</button>
+      <button class="option-btn" onclick="answer(event,'q4','b','c')">B. You don't have to exercise every day.</button>
+      <button class="option-btn" onclick="answer(event,'q4','c','c')">C. You mustn't smoke inside the hospital.</button>
+      <button class="option-btn" onclick="answer(event,'q4','d','c')">D. You could try meditation for stress.</button>
+    </div>
+    <div class="explanation" id="exp-q4">
+      <strong>Correct answer: C.</strong> <em>Must not / mustn't</em> expresses prohibition (something that is not allowed). <em>Should</em> = advice; <em>don't have to</em> = no obligation; <em>could</em> = suggestion/possibility.
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="q5">
+    <div class="q-num">Question 5 · Unit 9 – Vocabulary</div>
+    <div class="q-text">The total amount of greenhouse gases produced by a person's activities is their ___.</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(event,'q5','a','b')">A. ecosystem</button>
+      <button class="option-btn" onclick="answer(event,'q5','b','b')">B. carbon footprint</button>
+      <button class="option-btn" onclick="answer(event,'q5','c','b')">C. biodiversity</button>
+      <button class="option-btn" onclick="answer(event,'q5','d','b')">D. circular economy</button>
+    </div>
+    <div class="explanation" id="exp-q5">
+      <strong>Correct answer: B – carbon footprint.</strong> Carbon footprint measures the total greenhouse gas emissions caused by an individual or activity. An ecosystem is a community of organisms; biodiversity is the variety of species; a circular economy is a waste-reduction system.
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="q6">
+    <div class="q-num">Question 6 · Unit 9 – Grammar (Conditionals)</div>
+    <div class="q-text">Which sentence is a correct <em>second conditional</em>?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(event,'q6','a','d')">A. If we recycle more, the planet will be cleaner.</button>
+      <button class="option-btn" onclick="answer(event,'q6','b','d')">B. If every country will use renewables, we stop climate change.</button>
+      <button class="option-btn" onclick="answer(event,'q6','c','d')">C. If we reduced emissions, the planet is healthier.</button>
+      <button class="option-btn" onclick="answer(event,'q6','d','d')">D. If every country used renewables, we would slow climate change.</button>
+    </div>
+    <div class="explanation" id="exp-q6">
+      <strong>Correct answer: D.</strong> The 2nd conditional pattern is: <em>If + past simple, would + infinitive</em>. Option A is 1st conditional (real/likely). Options B and C mix tenses incorrectly.
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="q7">
+    <div class="q-num">Question 7 · Unit 10 – Vocabulary</div>
+    <div class="q-text">When a company hires workers in another country to perform tasks, this is called ___.</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(event,'q7','a','c')">A. diaspora</button>
+      <button class="option-btn" onclick="answer(event,'q7','b','c')">B. homogenisation</button>
+      <button class="option-btn" onclick="answer(event,'q7','c','c')">C. outsourcing</button>
+      <button class="option-btn" onclick="answer(event,'q7','d','c')">D. trade barrier</button>
+    </div>
+    <div class="explanation" id="exp-q7">
+      <strong>Correct answer: C – outsourcing.</strong> Outsourcing means hiring workers or companies in other countries. Diaspora = scattered population; homogenisation = making things uniform; trade barrier = restrictions on trade.
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="q8">
+    <div class="q-num">Question 8 · Unit 10 – Grammar (Reported Speech)</div>
+    <div class="q-text">Change to reported speech: The expert said, "Globalisation is accelerating."</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(event,'q8','a','b')">A. The expert said that globalisation is accelerating.</button>
+      <button class="option-btn" onclick="answer(event,'q8','b','b')">B. The expert said that globalisation was accelerating.</button>
+      <button class="option-btn" onclick="answer(event,'q8','c','b')">C. The expert said that globalisation will be accelerating.</button>
+      <button class="option-btn" onclick="answer(event,'q8','d','b')">D. The expert said globalisation accelerates.</button>
+    </div>
+    <div class="explanation" id="exp-q8">
+      <strong>Correct answer: B.</strong> In reported speech, the present continuous (<em>is accelerating</em>) shifts back to the past continuous (<em>was accelerating</em>). The reporting verb <em>said</em> (past) triggers this backshift.
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="q9">
+    <div class="q-num">Question 9 · Unit 7 – Reading Skill</div>
+    <div class="q-text">A technology article uses phrases like "research confirms …" and "studies demonstrate …". This most likely indicates the author's purpose is to ___.</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(event,'q9','a','a')">A. inform</button>
+      <button class="option-btn" onclick="answer(event,'q9','b','a')">B. entertain</button>
+      <button class="option-btn" onclick="answer(event,'q9','c','a')">C. persuade emotionally</button>
+      <button class="option-btn" onclick="answer(event,'q9','d','a')">D. satirise</button>
+    </div>
+    <div class="explanation" id="exp-q9">
+      <strong>Correct answer: A – inform.</strong> Signal phrases like "research confirms" and "studies demonstrate" indicate an informative, evidence-based purpose. Emotional persuasion would use appeals to feelings; entertainment would use humour or narrative.
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="q10">
+    <div class="q-num">Question 10 · Unit 9 – Writing Skill</div>
+    <div class="q-text">In a problem-solution essay about deforestation, where should you present realistic ways to address the issue?</div>
+    <div class="options">
+      <button class="option-btn" onclick="answer(event,'q10','a','c')">A. In the introduction</button>
+      <button class="option-btn" onclick="answer(event,'q10','b','c')">B. In the problem paragraph</button>
+      <button class="option-btn" onclick="answer(event,'q10','c','c')">C. In the solution paragraph(s)</button>
+      <button class="option-btn" onclick="answer(event,'q10','d','c')">D. Only in the conclusion</button>
+    </div>
+    <div class="explanation" id="exp-q10">
+      <strong>Correct answer: C.</strong> The problem-solution essay structure dedicates one or more body paragraphs specifically to <em>solutions</em>. The introduction gives background; the problem paragraph describes the issue; the conclusion summarises.
+    </div>
+  </div>
+
+  <button id="reset-btn" onclick="resetQuiz()">↺ Reset Quiz</button>
+</section>
+
+<script>
+  /* ── Tab switching ── */
+  function showSection(event, id) {
+    // Deactivate all tabs and sections
+    document.querySelectorAll('.tab-bar button').forEach(function(btn) {
+      btn.classList.remove('active');
+    });
+    document.querySelectorAll('.section').forEach(function(sec) {
+      sec.classList.remove('active');
+    });
+
+    // Activate the clicked tab and target section
+    event.currentTarget.classList.add('active');
+    document.getElementById(id).classList.add('active');
+  }
+
+  /* ── Quiz logic ── */
+  var answered = {};   // tracks which questions have been answered
+  var correct  = 0;
+  var total    = 0;
+
+  function answer(event, qId, chosen, correctKey) {
+    if (answered[qId]) return;   // already answered
+
+    answered[qId] = true;
+    total++;
+
+    var card = document.getElementById(qId);
+    var buttons = card.querySelectorAll('.option-btn');
+    var explanation = document.getElementById('exp-' + qId);
+
+    // Disable all buttons for this question
+    buttons.forEach(function(btn) { btn.disabled = true; });
+
+    // Mark correct / wrong
+    buttons.forEach(function(btn) {
+      // Extract the letter key from the button's onclick attribute
+      var onclickAttr = btn.getAttribute('onclick');
+      // key is the 3rd argument: answer(event,'q1','a','c') → 'a'
+      var match = onclickAttr.match(/answer\(event,'[^']+','([^']+)','[^']+'\)/);
+      if (match) {
+        var btnKey = match[1];
+        if (btnKey === correctKey) {
+          btn.classList.add('correct');
+        } else if (btnKey === chosen) {
+          btn.classList.add('wrong');
+        }
+      }
+    });
+
+    // Show explanation
+    explanation.classList.add('show');
+
+    // Update score
+    if (chosen === correctKey) {
+      correct++;
+    }
+    document.getElementById('score').textContent = correct;
+    document.getElementById('total').textContent = total;
+  }
+
+  /* ── Reset quiz ── */
+  function resetQuiz() {
+    answered = {};
+    correct  = 0;
+    total    = 0;
+    document.getElementById('score').textContent = '0';
+    document.getElementById('total').textContent = '0';
+
+    document.querySelectorAll('.option-btn').forEach(function(btn) {
+      btn.disabled = false;
+      btn.classList.remove('correct', 'wrong');
+    });
+    document.querySelectorAll('.explanation').forEach(function(exp) {
+      exp.classList.remove('show');
+    });
+  }
+</script>
+</body>
+</html>
